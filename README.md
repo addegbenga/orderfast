@@ -37,8 +37,8 @@ Make sure you have the following installed on your machine:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/food-delivery-app.git
-   cd food-delivery-app
+   git clone git@github.com:addegbenga/orderfast.git
+   cd orderfast
    ```
 
 2. Install dependencies:
@@ -117,4 +117,3 @@ pnpm run test:cov
   ```
 
 ## Contribution
-
