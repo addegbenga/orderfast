@@ -2,22 +2,20 @@
 
 ## Overview
 
-This project explores backend technologies by building a simple food delivery app. The app includes features such as order processing, real-time location tracking, notifications, and more.
-
-Features will be added gradually, this is just a hobby project.
+This project explores backend technologies by building a simple food delivery app. The app includes features such as order processing, real-time location tracking, notifications, and more. Features will be added gradually, as this is a hobby project.
 
 ## Technology Stack
 
-- **Backend**: Node.js, Express, or NestJS for API development.
-- **Database**: PostgreSQL with PostGIS, MongoDB.
-- **Message Queue**: RabbitMQ, Apache Kafka.
+- **Backend**: Node.js with Express or NestJS for API development.
+- **Database**: PostgreSQL with PostGIS for structured data, MongoDB for real-time data.
+- **Message Queue**: RabbitMQ or Apache Kafka.
 - **Real-time Updates**: Redis Pub/Sub, WebSockets.
 - **Background Processing**: Bull (a Node.js queue library) or Kue.
 - **Notification Service**: AWS SNS, Twilio, Firebase Cloud Messaging.
 
 ## Features Checklist
 
-- **Database Selection**: PostgreSQL for structured data, MongoDB for real-time data.
+- **Database Selection**: Use PostgreSQL for structured data and MongoDB for real-time data.
 - **Authentication & Authorization**: Implement user authentication and authorization.
 - **Caching with Redis**: Cache frequently accessed data for improved performance.
 - **Background Tasks and Queues**: Manage order processing, geospatial queries, delivery agent matching, real-time location tracking, and notifications.
@@ -28,66 +26,95 @@ Features will be added gradually, this is just a hobby project.
 
 ### Prerequisites
 
-Make sure you have Node.js and Docker installed on your machine.
+Make sure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/en/download/)
+- [Docker](https://www.docker.com/products/docker-desktop/)
+- [pnpm](https://pnpm.io/installation)
 
 ### Installation
 
-```bash
-$ pnpm install
-```
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/food-delivery-app.git
+   cd food-delivery-app
+   ```
+
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
 
 ### Running the App Locally
 
+For development mode:
+
 ```bash
-# Development mode
-$ pnpm run start:dev
+pnpm run start:dev
 ```
 
 ### Running with Docker
 
+For production mode with Docker:
+
 ```bash
-# Production mode with Docker
-$ pnpm run docker:prod
+pnpm run docker:prod
 ```
 
 This command will build the Docker image and start the app in production mode using Docker Compose.
 
-### Running with Docker dev mode
+For development mode with Docker:
 
 ```bash
-# Production mode with Docker
-$ pnpm run docker:dev
+pnpm run docker:dev
 ```
 
-This command will build the Docker image and start the app in dev mode using Docker Compose.
+This command will build the Docker image and start the app in development mode using Docker Compose.
 
-## Application and RedisInsight Port
+### Application Ports
 
-```bash
-# Your server port is running on
-$ localhost:8080
-```
-
-```bash
-# Your redis insight port is running on
-$ localhost:8001
-```
+- **Application Port**: The server runs on `http://localhost:8080`.
+- **RedisInsight Port**: RedisInsight runs on `http://localhost:8001`.
 
 ### Testing
 
+Run unit tests:
+
 ```bash
-# Run unit tests
-$ pnpm run test
-
-# Run end-to-end tests
-$ pnpm run test:e2e
-
-# Test coverage
-$ pnpm run test:cov
+pnpm run test
 ```
 
-## Additional Commands
+Run end-to-end tests:
 
-- `pnpm run lint`: Run ESLint to lint your code.
-- `pnpm run format`: Use Prettier to format your code.
-- `pnpm run build`: Build the project with NestJS.
+```bash
+pnpm run test:e2e
+```
+
+Generate test coverage report:
+
+```bash
+pnpm run test:cov
+```
+
+### Additional Commands
+
+- **Linting**: Run ESLint to lint your code.
+
+  ```bash
+  pnpm run lint
+  ```
+
+- **Formatting**: Use Prettier to format your code.
+
+  ```bash
+  pnpm run format
+  ```
+
+- **Building**: Build the project with NestJS.
+  ```bash
+  pnpm run build
+  ```
+
+## Contribution
+
