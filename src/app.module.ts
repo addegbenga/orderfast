@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { DeliveryagentsModule } from './deliveryagents/deliveryagents.module';
-import { OutletsModule } from './outlets/outlets.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { RedisModule } from '@nestjs-modules/ioredis';
@@ -17,13 +16,14 @@ import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AllExceptionsFilter } from './common/exceptions/all-exceptions.filter';
 import { TransformInterceptor } from './common/interceptors/response.interceptor';
 import { MailModule } from './mail/mail.module';
+import { RestaurantsModule } from './restaurants/restaurants.module';
+import { StoresModule } from './stores/stores.module';
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
     DeliveryagentsModule,
-    OutletsModule,
     AddressModule,
     OtpModule,
     EventEmitterModule.forRoot(),
@@ -54,6 +54,8 @@ import { MailModule } from './mail/mail.module';
       inject: [ConfigService],
     }),
     MailModule,
+    RestaurantsModule,
+    StoresModule,
   ],
   controllers: [AppController],
   providers: [
