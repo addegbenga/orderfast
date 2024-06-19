@@ -26,8 +26,10 @@ import { StoresModule } from './stores/stores.module';
     DeliveryagentsModule,
     AddressModule,
     OtpModule,
+    MailModule,
+    RestaurantsModule,
+    StoresModule,
     EventEmitterModule.forRoot(),
-
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
@@ -53,9 +55,6 @@ import { StoresModule } from './stores/stores.module';
       }),
       inject: [ConfigService],
     }),
-    MailModule,
-    RestaurantsModule,
-    StoresModule,
   ],
   controllers: [AppController],
   providers: [

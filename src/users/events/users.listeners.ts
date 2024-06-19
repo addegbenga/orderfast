@@ -1,6 +1,6 @@
 import { OnEvent } from '@nestjs/event-emitter';
 import { Injectable } from '@nestjs/common';
-import { OtpService } from 'src/otp/otp.service';
+import { OtpService } from '../../otp/otp.service';
 import { UserEvent } from './enum.event';
 import { CreateUserEventDto } from '../dto/create-user.dto';
 import { MailService } from '../../mail/mail.service';

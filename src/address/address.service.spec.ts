@@ -1,15 +1,26 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { AddressService } from './address.service';
+
+const mockTaskRepository = () => ({
+  getTasks: jest.fn(),
+  findOne: jest.fn(),
+});
 
 describe('AddressService', () => {
   let service: AddressService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [AddressService],
+    const module = await Test.createTestingModule({
+      providers: [
+        AddressService,
+        {
+          provide: AddressService,
+          useFactory: mockTaskRepository,
+        },
+      ],
     }).compile();
 
-    service = module.get<AddressService>(AddressService);
+    service = module.get(AddressService);
   });
 
   it('should be defined', () => {

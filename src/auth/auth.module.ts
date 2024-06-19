@@ -2,15 +2,16 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { UserEntity } from 'src/users/entities/user.entity';
-import { OtpService } from 'src/otp/otp.service';
-import { UserCreatedListener } from 'src/users/events/users.listeners';
-import { MailService } from 'src/mail/mail.service';
+import { UserEntity } from '../users/entities/user.entity';
+import { OtpService } from '../otp/otp.service';
+import { UserCreatedListener } from '../users/events/users.listeners';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersModule } from 'src/users/users.module';
+import { UsersModule } from '../users/users.module';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
   imports: [
+    MailModule,
     UsersModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -25,12 +26,6 @@ import { UsersModule } from 'src/users/users.module';
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    UserEntity,
-    OtpService,
-    UserCreatedListener,
-    MailService,
-  ],
+  providers: [AuthService, UserEntity, OtpService, UserCreatedListener],
 })
 export class AuthModule {}

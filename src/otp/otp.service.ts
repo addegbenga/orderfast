@@ -3,7 +3,7 @@ import Redis from 'ioredis';
 import * as speakeasy from 'speakeasy';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import { RedisKeys } from '../common/helpers/redis.helper';
-import { EXPIRY_TIME } from 'src/common/enums/index.enum';
+import { EXPIRY_TIME } from '../common/enums/index.enum';
 import { EmailOtpDto, EmailOtpVerifyDto } from './dto/create-otp.dto';
 
 @Injectable()

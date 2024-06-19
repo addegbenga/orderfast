@@ -8,8 +8,8 @@ export class MailService {
   private sendGridKey: string;
   private sendGridSender: string;
   constructor(private configService: ConfigService) {
-    this.sendGridKey = configService.get('SENDGRID_API_KEY');
-    this.sendGridSender = configService.get('SEND_GRID_MAIL_FROM');
+    this.sendGridKey = this.configService.get('SENDGRID_API_KEY');
+    this.sendGridSender = this.configService.get('SEND_GRID_MAIL_FROM');
     sgMail.setApiKey(this.sendGridKey);
   }
   async sendMail(sendEmailDto: CreateMailDto) {

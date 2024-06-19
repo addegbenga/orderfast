@@ -8,12 +8,12 @@ import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './dto/jwt-payload.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { EmailOtpVerifyDto } from 'src/otp/dto/create-otp.dto';
-import { UserEvent } from 'src/users/events/enum.event';
-import { UserCreatedEvent } from 'src/users/events/user.event';
-import { OtpService } from 'src/otp/otp.service';
-import { UsersService } from 'src/users/users.service';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { EmailOtpVerifyDto } from '../otp/dto/create-otp.dto';
+import { UserEvent } from '../users/events/enum.event';
+import { UserCreatedEvent } from '../users/events/user.event';
+import { OtpService } from '../otp/otp.service';
+import { UsersService } from '../users/users.service';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
