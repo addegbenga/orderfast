@@ -11,3 +11,10 @@ export class AuthDto {
   @IsString()
   password: string;
 }
+
+export class AccessAuthDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  accessToken: string;
+}

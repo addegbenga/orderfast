@@ -69,7 +69,7 @@ $ localhost:8080
 ```
 
 ```bash
-# Your redis insigt port is running on
+# Your redis insight port is running on
 $ localhost:8001
 ```
 

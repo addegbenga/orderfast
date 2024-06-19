@@ -15,16 +15,13 @@ export class AllExceptionsFilter implements ExceptionFilter {
   constructor(
     private readonly httpAdapterHost: HttpAdapterHost,
     private readonly eventEmitter: EventEmitter2,
-  ) {
-    this.eventEmitter.on('httpError', this.handleError.bind(this));
-  }
+  ) {}
 
   catch(exception: unknown, host: ArgumentsHost): void {
     const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-
     if (exception instanceof HttpException) {
       const status = exception.getStatus();
       const responseBody = {

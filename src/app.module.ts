@@ -33,6 +33,7 @@ import { MailModule } from './mail/mail.module';
       cache: true,
       load: [AppConfig, DatabaseConfig],
     }),
+
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
