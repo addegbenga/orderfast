@@ -28,9 +28,7 @@ This project explores backend technologies by building a simple food delivery ap
 
 Make sure you have the following installed on your machine:
 
-- [Node.js](https://nodejs.org/en/download/)
 - [Docker](https://www.docker.com/products/docker-desktop/)
-- [pnpm](https://pnpm.io/installation)
 
 ### Installation
 
