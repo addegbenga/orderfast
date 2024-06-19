@@ -8,7 +8,7 @@ export class OtpController {
   constructor(private readonly otpService: OtpService) {}
 
   @Post('/resend')
-  verifyEmail(@Body() emailVerifyDto: EmailOtpDto) {
+  async verifyEmail(@Body() emailVerifyDto: EmailOtpDto) {
     return this.otpService.resendOtp(emailVerifyDto);
   }
 }

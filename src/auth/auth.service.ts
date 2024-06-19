@@ -44,10 +44,8 @@ export class AuthService {
     return result;
   }
   async signIn(authCredentialsDto: AuthDto): Promise<{
-    data: {
-      tokens: { accessToken: string; refreshToken: string };
-      user: AuthDto;
-    };
+    tokens: { accessToken: string; refreshToken: string };
+    user: AuthDto;
   }> {
     const { password, email } = authCredentialsDto;
 
@@ -65,13 +63,11 @@ export class AuthService {
         email: user.email,
       });
       return {
-        data: {
-          tokens: {
-            accessToken: signedToken.accessToken,
-            refreshToken: signedToken.refreshToken,
-          },
-          user: user,
+        tokens: {
+          accessToken: signedToken.accessToken,
+          refreshToken: signedToken.refreshToken,
         },
+        user: user,
       };
     } else {
       throw new UnauthorizedException('Not Authorized');

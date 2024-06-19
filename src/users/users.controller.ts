@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiTags } from '@nestjs/swagger';
+import { createPaginatedResponse } from 'src/common/util/response.util';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -9,6 +10,14 @@ export class UsersController {
   @Get('/all')
   async findAllUser() {
     const result = await this.usersService.getAllUser();
-    return result;
+    return createPaginatedResponse({
+      status: HttpStatus.OK,
+      message: 'All Users Fetched Successfully',
+      data: result,
+      currentPage: 0,
+      pageSize: 0,
+      totalItems: 0,
+      totalPages: 0,
+    });
   }
 }
