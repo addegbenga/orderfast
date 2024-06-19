@@ -1,0 +1,87 @@
+services:
+  dev_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=$MONGO_URI
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src:/app/src
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+      # mongodb:
+      #   condition: service_healthy
+    env_file:
+      - .env
+  # Postgress
+  postgres_db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    user: $DB_USERNAME
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRES_USER=$DB_USERNAME
+      - POSTGRES_PORT=$DB_PORT
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+    expose:
+      - 5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - .env
+# Mongodb
+  mongodb: 
+    restart: always
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_URI=$MONGO_URI
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    healthcheck:
+      test: ["CMD", "mongo_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 1
+    env_file:
+      - .env
+# Redis cache and redis insight on port 8001
+  redis-cache:
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379"
+      - '8001:8001'
+    volumes:
+      - redis-data:/data/db
+    healthcheck:
+      test: redis-cli ping
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    environment:
+      - REDIS_ARGS=--requirepass mystrongpassword
+      - REDISTIMESERIES_ARGS=RETENTION_POLICY=20
+volumes:
+  db-data:
+  mongo_data:
+  redis-data:
+  # redisinsight:
+
+
+
