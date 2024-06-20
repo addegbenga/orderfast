@@ -3,7 +3,12 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AccessAuthDto, AuthDto } from './dto/create-auth.dto';
+import {
+  AccessAuthDto,
+  AuthDto,
+  ForgotPasswordAuthDto,
+  ResetPasswordAuthDto,
+} from './dto/create-auth.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './dto/jwt-payload.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -15,6 +20,8 @@ import { UserCreatedEvent } from '../users/events/user.event';
 import { OtpService } from '../otp/otp.service';
 import { UsersService } from '../users/users.service';
 import { ConfigService } from '@nestjs/config';
+import { RedisKeys } from '../common/helpers/redis.helper';
+import { EXPIRY_TIME } from '../common/enums/index.enum';
 
 @Injectable()
 export class AuthService {
@@ -115,12 +122,43 @@ export class AuthService {
     return bcrypt.compare(payload.password, payload.hashedbPassword);
   }
 
-  async verifyEmail({ email, otp }: EmailOtpVerifyDto) {
+  async verifyEmail(payload: EmailOtpVerifyDto) {
     await this.otpService.verifyOtp({
-      email,
-      otp,
+      otp: payload.otp,
+      email: payload.email,
+      expiryTime: EXPIRY_TIME.LONG_EXP,
+      redisKey: RedisKeys.emailVerificationPin(payload.email),
     });
+    await this.usersService.updateUser({
+      email: payload.email,
+      isActive: true,
+    });
+  }
 
-    await this.usersService.updateUser({ email, isActive: true });
+  async forgotPassword(payload: ForgotPasswordAuthDto) {
+    //When user click on forgot password: collect their email and use it to send reset code to their email
+
+    //--> Generate OTP
+    const result = await this.otpService.generateOtp({
+      email: payload.email,
+      expiryTime: EXPIRY_TIME.LONG_EXP,
+      redisKey: RedisKeys.passwordResetPin(payload.email),
+    });
+    return result;
+  }
+
+  async resetPassword(payload: ResetPasswordAuthDto) {
+    //-->1.Verify otp
+    await this.otpService.verifyOtp({
+      otp: payload.otp,
+      email: payload.email,
+      expiryTime: EXPIRY_TIME.LONG_EXP,
+      redisKey: RedisKeys.passwordResetPin(payload.email),
+    });
+    //-->2.Edit password with the new one
+    await this.usersService.resetUserPassword({
+      email: payload.email,
+      newPassword: payload.newPassword,
+    });
   }
 }

@@ -3,8 +3,14 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { EmailOtpVerifyDto } from '../otp/dto/create-otp.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthDto, AccessAuthDto } from './dto/create-auth.dto';
+import {
+  AuthDto,
+  AccessAuthDto,
+  ForgotPasswordAuthDto,
+  ResetPasswordAuthDto,
+} from './dto/create-auth.dto';
 import { createResponse } from '../common/util/response.util';
+
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
@@ -34,6 +40,30 @@ export class AuthController {
       HttpStatus.OK,
       'Token Refreshed Successfully',
       result,
+    );
+  }
+
+  @Post('/forgotPassword')
+  async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordAuthDto) {
+    await this.authService.forgotPassword(forgotPasswordDto);
+
+    //-->Todo: Raise an event to Send Mail with the code.
+    return createResponse(
+      HttpStatus.OK,
+      'Password Reset Successfully, Check your email',
+      [],
+    );
+  }
+
+  @Post('/resetPassword')
+  async resetPassword(@Body() resetPasswordAuthDto: ResetPasswordAuthDto) {
+    await this.authService.resetPassword(resetPasswordAuthDto);
+
+    //-->Todo: Raise an event to Send Mail that password has been reset.
+    return createResponse(
+      HttpStatus.OK,
+      'Password has been changed Successfully.',
+      [],
     );
   }
 }

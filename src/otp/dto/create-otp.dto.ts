@@ -1,5 +1,6 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { EXPIRY_TIME } from '../../common/enums/index.enum';
 
 export class CreateOtpDto {}
 
@@ -12,6 +13,9 @@ export class EmailOtpDto {
   @ApiProperty()
   @IsEmail()
   email: string;
+
+  redisKey?: string;
+  expiryTime?: EXPIRY_TIME;
 }
 
 export class EmailOtpVerifyDto {
@@ -20,6 +24,10 @@ export class EmailOtpVerifyDto {
   email: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsString()
   otp: string;
+
+  redisKey?: string;
+  expiryTime?: EXPIRY_TIME;
 }

@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  MinLength,
 } from 'class-validator';
 import { CreateAddressDto } from 'src/address/dto/create-address.dto';
 import { ApiProperty } from '@nestjs/swagger';
@@ -30,6 +31,7 @@ export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
+  @MinLength(4)
   password: string;
 
   @ApiProperty()
@@ -48,6 +50,18 @@ export class CreateUserDto {
   isActive: boolean;
 
   address?: CreateAddressDto; // Assuming AddressDTO is defined similarly for the address fields
+}
+
+export class ResetUserPasswordDto {
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(4)
+  newPassword: string;
 }
 
 export class CreateUserEventDto {
