@@ -29,30 +29,22 @@ This project explores backend technologies by building a simple food delivery ap
 Make sure you have the following installed on your machine:
 
 - [Docker](https://www.docker.com/products/docker-desktop/)
+- [Pnpm](https://pnpm.io/installation)
 
 ### Installation
 
-1. Clone the repository:
+1. Fork and Clone the forked repository:
 
    ```bash
    git clone git@github.com:addegbenga/orderfast.git
    cd orderfast
    ```
 
-2. Install dependencies:
-   ```bash
-   pnpm install
-   ```
+2. Create an Environment File:
 
-### Running the App Locally
+Create a new .env file in the root directory of the project by copying the existing .env.example file. This file contains the template for the necessary environment variables.
 
-For development mode:
-
-```bash
-pnpm run start:dev
-```
-
-### Running with Docker
+### Running with Docker Locally (Preffered)
 
 For production mode with Docker:
 
@@ -68,7 +60,7 @@ For development mode with Docker:
 pnpm run docker:dev
 ```
 
-This command will build the Docker image and start the app in development mode using Docker Compose.
+This command will build the Docker image and start the app in development mode using Docker Compose and also watch rebuild the app on any code change.
 
 ### Application Ports
 
@@ -94,24 +86,5 @@ Generate test coverage report:
 ```bash
 pnpm run test:cov
 ```
-
-### Additional Commands
-
-- **Linting**: Run ESLint to lint your code.
-
-  ```bash
-  pnpm run lint
-  ```
-
-- **Formatting**: Use Prettier to format your code.
-
-  ```bash
-  pnpm run format
-  ```
-
-- **Building**: Build the project with NestJS.
-  ```bash
-  pnpm run build
-  ```
 
 ## Contribution
